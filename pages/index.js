@@ -6,6 +6,8 @@ import styles from "../styles/Home.module.css";
 const App = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
+  const [cart, setCart] = useState([]);
+  const [totalCart, setTotalCart] = useState(0);
 
   useEffect(() => {
      fetch('http://localhost:8080/menu-items')
@@ -55,18 +57,21 @@ const App = () => {
 
   return (
     <div className={styles.container}>
-    {menuItems.map((menuItem) => {
-      var index = menuItems.findIndex(x => x.id === menuItem.id);
-      console.log(menuItem.id);
-      console.log(index);
-       return (
-         // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
-         <Card menuItem={menuItem} fnc={changeSelectedItem} />
-       );
-   })}
-   <Footer>
-      {selectedItem}
-   </Footer>
+      {menuItems.map((menuItem) => {
+         var index = menuItems.findIndex(x => x.id === menuItem.id);
+         console.log(menuItem.id);
+         console.log(index);
+         return (
+            // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
+            <div>
+               <Card menuItem={menuItem} totalCart={totalCart} setTotalCart={setTotalCart} cart={cart} />
+            </div>
+         );
+      })}
+      <div className={styles.endList}></div>
+      <div className={styles.footer}>
+         <p>Total: {totalCart}</p>
+      </div>
    </div>
   );
 };

@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 import styles from './Card.module.css';
 import { useState } from 'react';
 
-function Card({menuItem, fnc}) {
+function Card({menuItem, totalCart, setTotalCart, cart}) {
 
     const [modalIsOpened, setModalIsOpened] = useState(false);
     const [quantity, setQuantity] = useState(0);
@@ -31,6 +31,18 @@ function Card({menuItem, fnc}) {
         console.log(quantity);
      }
 
+     function add(menuItem) {
+        cart.push(
+            {
+                menuItem,
+                quantity: quantity,
+                subtotal: (menuItem.price * quantity)
+            }
+        );
+        setTotalCart( totalCart + (quantity * menuItem.price));
+        console.log(cart);
+     }
+
     return (
         <div className={styles.card} key={menuItem.id}>
             <div onClick={() => openModal()}>
@@ -42,6 +54,7 @@ function Card({menuItem, fnc}) {
                 isOpen={modalIsOpened}
                 onRequestClose={closeModal}
                 appElement={this}
+                preventScroll={true}
                 contentLabel='Adicionar ao pedido'>
                 <div className={styles.modal}>
                     <button onClick={closeModal} className={styles.close}>X</button>
@@ -51,7 +64,7 @@ function Card({menuItem, fnc}) {
                         <input className={styles.inputQuantity} type='number' value={quantity} readOnly/>
                         <button className={styles.buttonIcreaseDecrease} onClick={increaseQtd}>+</button>
                     </p>
-                    <p><button className={styles.buttonAdd}>Adicionar</button></p>
+                    <p><button className={styles.buttonAdd} onClick={() => add(menuItem) }>Adicionar</button></p>
                 </div>
             </ReactModal>
         </div>
