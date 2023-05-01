@@ -13,6 +13,7 @@
     margin-top: 15px;
     border-radius: 17px;
     border-color: coral;
+    min-width: 20em; /* Will be AT LEAST 20em wide */
 }
 
 /* The Modal (background) */
