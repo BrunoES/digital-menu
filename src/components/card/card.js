@@ -5,9 +5,10 @@ import { useState } from 'react';
 function Card({menuItem, totalCart, setTotalCart, cart}) {
 
     const [modalIsOpened, setModalIsOpened] = useState(false);
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     function openModal() {
+        setQuantity(1);
         console.log(modalIsOpened);
         setModalIsOpened(true);
         console.log(modalIsOpened);
@@ -41,6 +42,7 @@ function Card({menuItem, totalCart, setTotalCart, cart}) {
         );
         setTotalCart( totalCart + (quantity * menuItem.price));
         console.log(cart);
+        closeModal();
      }
 
     return (

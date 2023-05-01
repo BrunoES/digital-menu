@@ -1,4 +1,4 @@
-.card {
+.item {
     font-family: Arial, Helvetica, sans-serif;
     background-color:rgb(255, 255, 255);
     align-items: center;
@@ -13,6 +13,7 @@
     margin-top: 15px;
     border-radius: 17px;
     border-color: coral;
+
 }
 
 /* The Modal (background) */
@@ -28,28 +29,22 @@
     border-radius: 18px;
   }
   
-.inputQuantity {
-    font-family: Arial, Helvetica, sans-serif;
+.checkoutItems {
+    display: flex;
+    justify-content: center;
+}
+  
+.table {
+    align-self: center;
     text-align: center;
-    color: white;
-    background-color: coral; /* Fallback color */
-    font-size: 18px;
-    width: 10%;
-    height: auto;
-    border-radius: 5px;
-    border: none;
 }
 
-  
 /* The Close Button */
 .close {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    float: right;
     color: white;
     background-color: coral; /* Fallback color */
-    width: 10%;
-    font-size: 25px;
     border: none;
 }
 
@@ -60,20 +55,7 @@
     cursor: pointer;
 }
 
-.buttonIcreaseDecrease {
-    font-family: Arial, Helvetica, sans-serif;
-    color: coral;
-    background-color: white; /* Fallback color */
-    width: 10%;
-    border-radius: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 5%;
-    margin-left: 5%;
-    border: none;
-}
-
-.buttonAdd {
+.buttonCart {
     font-family: Arial, Helvetica, sans-serif;
     color: coral;
     background-color: white; /* Fallback color */
@@ -81,13 +63,32 @@
     width: 50%;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 25px;
     border: none;
 }
 
-.title {
+
+.buttonFinish {
     font-family: Arial, Helvetica, sans-serif;
-    margin-top: 31px;
+    color: coral;
+    background-color: white; /* Fallback color */
+    border-radius: 50px;
+    width: 50%;
     font-size: 20px;
     font-weight: bold;
+    margin-top: 30px;
+    border: none;
+}
+
+.checkoutQuantity {
+    width: 20%;
+}
+
+.checkoutSubTotal {
+    width: 20%;
+}
+
+.checkoutDetail {
+    width: 60%;
 }
