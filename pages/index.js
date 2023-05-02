@@ -6,6 +6,14 @@ import ReactModal from 'react-modal';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
+ReactModal.defaultStyles.content.padding = '0px';
+ReactModal.defaultStyles.content.border = 'none';
+ReactModal.defaultStyles.content.position = 'none';
+ReactModal.defaultStyles.content.marginTop = '40px';
+ReactModal.defaultStyles.content.marginLeft = '5px';
+ReactModal.defaultStyles.content.marginRight = '5px';
+ReactModal.defaultStyles.content.marginBottom = '20px';
+
 const App = () => {
   const [modalIsOpened, setModalIsOpened] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
@@ -40,15 +48,11 @@ const App = () => {
   }, []);
 
    function openModal() {
-      console.log(modalIsOpened);
       setModalIsOpened(true);
-      console.log(modalIsOpened);
   }
 
   function closeModal() {
-      console.log(modalIsOpened);
       setModalIsOpened(false);
-      console.log(modalIsOpened);
    }
 
    function removeCartItemByIndex(index) {
@@ -70,7 +74,7 @@ const App = () => {
 
   return (
    <div>
-      <Snackbar open={openAlertRemoveItemCheckout} autoHideDuration={3000} onClose={handleCloseAlert}>
+      <Snackbar open={openAlertRemoveItemCheckout} autoHideDuration={1500} onClose={handleCloseAlert}>
          <Alert severity="error" sx={{ width: '100%' }}>
             {msgAlert}
          </Alert>
@@ -104,13 +108,10 @@ const App = () => {
          </ReactModal>
 
          {menuItems.map((menuItem) => {
-            var index = menuItems.findIndex(x => x.id === menuItem.id);
-            console.log(menuItem.id);
-            console.log(index);
             return (
                // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
                <div>
-                  <Card menuItem={menuItem} totalCart={totalCart} setTotalCart={setTotalCart} cart={cart} />
+                  <Card menuItem={menuItem} totalCart={totalCart} setTotalCart={setTotalCart} cart={cart} setCart={setCart} />
                </div>
             );
          })}

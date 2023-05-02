@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-function Card({menuItem, totalCart, setTotalCart, cart}) {
+function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
 
     const [modalIsOpened, setModalIsOpened] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -13,39 +13,49 @@ function Card({menuItem, totalCart, setTotalCart, cart}) {
 
     function openModal() {
         setQuantity(1);
-        console.log(modalIsOpened);
         setModalIsOpened(true);
-        console.log(modalIsOpened);
     }
 
     function closeModal() {
-        console.log(modalIsOpened);
         setModalIsOpened(false);
-        console.log(modalIsOpened);
     }
     
     function increaseQtd() {
         let qtd = quantity;
         if(qtd < 99) setQuantity(++qtd);
-        console.log(quantity);
      }
   
      function decreaseQtd() {
         let qtd = quantity;
         if(qtd > 0) setQuantity(--qtd);
-        console.log(quantity);
      }
 
      function add(menuItem) {
+        let indexIfExists = cart.findIndex(x => x.menuItem.id === menuItem.id);
+        var subTot = (quantity * menuItem.price);
+        var qtd = quantity;
+        var totCart = (totalCart + subTot);
+
+        console.log("index: " + indexIfExists);
+
+        if(indexIfExists >= 0) {
+            subTot = parseFloat(cart[indexIfExists].subtotal) + subTot;
+            qtd = cart[indexIfExists].quantity + quantity;
+        }
+
         cart.push(
             {
                 menuItem,
-                quantity: quantity,
-                subtotal: (menuItem.price * quantity)
+                quantity: qtd,
+                subtotal: subTot
             }
         );
-        setTotalCart( totalCart + (quantity * menuItem.price));
-        console.log(cart);
+
+        setCart(oldValues => {
+            return oldValues.filter((_, i) => i !== indexIfExists)
+          });
+
+        setTotalCart(parseFloat(totCart).toFixed(2));
         closeModal();
         setMsgAlert(quantity + " x " + menuItem.name + " adicionado(s) ao carrinho");
         setOpenAlertSucess(true);
@@ -58,7 +68,7 @@ function Card({menuItem, totalCart, setTotalCart, cart}) {
 
     return (
         <div>
-            <Snackbar open={openAlertSucess} autoHideDuration={3000} onClose={handleCloseAlert}>
+            <Snackbar open={openAlertSucess} autoHideDuration={1500} onClose={handleCloseAlert}>
                 <Alert severity="success" sx={{ width: '100%' }}>
                     {msgAlert}
                 </Alert>
