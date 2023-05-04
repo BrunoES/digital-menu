@@ -65,6 +65,32 @@ const App = () => {
 
    function save() {
       console.log("Chamando API de cadastro de pedido");
+
+      var checkoutItems = [];
+
+      {cart.map((item) => {
+         checkoutItems.push({
+            itemId: item.menuItem.id,
+            quantity: item.quantity,
+            price: item.menuItem.price
+         });
+      })}
+
+      var checkout = {
+         customerId: 1,
+         customerName: "Bruno Henrique",
+         total: totalCart,
+         obs: "Sem katchup",
+         checkoutItems : checkoutItems
+     }
+
+      fetch('http://192.168.0.18:8080/pedidos', {
+         method: "POST",
+         body: JSON.stringify(checkout),
+         headers: {"Content-type": "application/json; charset=UTF-8"}
+         })
+         .then(response => response.json())
+         .then(json => console.log(json));
    }
 
    function handleCloseAlert() {
