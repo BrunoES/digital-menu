@@ -16,11 +16,20 @@
 }
 
 .dateHour {
-    font-size: 12px;
     width: 129px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.pedidoObs {
-    font-size: 12px;
+.pedidoText {
     width: 157px;
+}
+
+.pedido {
+    font-size: 14px;
+}
+
+.items {
+    font-size: 12px;
+    font-weight: bold;
 }

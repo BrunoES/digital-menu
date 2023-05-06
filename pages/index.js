@@ -34,6 +34,7 @@ const App = () => {
   const [meusPedidos, setMeusPedidos] = useState([]);
 
   const [openAlertRemoveItemCheckout, setOpenAlertRemoveItemCheckout] = useState(false);
+  const [openAlertCheckoutFinished, setOpenAlertCheckoutFinished] = useState(false);
   const [msgAlert, setMsgAlert] = useState("");
   
   useEffect(() => {
@@ -113,7 +114,7 @@ const App = () => {
          customerId: customerId,
          customerName: "Bruno Henrique",
          total: totalCart,
-         obs: "Sem katchup",
+         obs: "Sem katchupPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
          checkoutItems : checkoutItems
      }
 
@@ -124,22 +125,34 @@ const App = () => {
          })
          .then(response => response.json())
          .then(json => console.log(json));
+
+      setTotalCart(0);
+      setCart([]);
+      setMsgAlert("Seu pedido foi feito, é só aguardar ;) !");
+      setOpenAlertCheckoutFinished(true);
+      closeModalCart();
    }
 
    function handleCloseAlert() {
       setOpenAlertRemoveItemCheckout(false);
+      setOpenAlertCheckoutFinished(false);
       setMsgAlert("");
    }
 
    function formatDate(stringDate) {
       var datePedido = new Date(stringDate);
-      return (datePedido.toLocaleDateString() + " às " + datePedido.getHours() + ":" + datePedido.getMinutes());
+      return (datePedido.toLocaleDateString() + " " + datePedido.getHours() + ":" + datePedido.getMinutes());
    }
 
   return (
    <div>
-      <Snackbar open={openAlertRemoveItemCheckout} autoHideDuration={1500} onClose={handleCloseAlert}>
+      <Snackbar open={openAlertRemoveItemCheckout} autoHideDuration={1000} onClose={handleCloseAlert}>
          <Alert severity="error" sx={{ width: '100%' }}>
+            {msgAlert}
+         </Alert>
+      </Snackbar>
+      <Snackbar open={openAlertCheckoutFinished} autoHideDuration={5000} onClose={handleCloseAlert}>
+         <Alert severity="success" sx={{ width: '100%' }}>
             {msgAlert}
          </Alert>
       </Snackbar>
@@ -174,25 +187,35 @@ const App = () => {
                isOpen={modalMeusPedidosIsOpened}
                onRequestClose={closeModalMeusPedidos}
                appElement={this}
-               preventScroll={true}
                contentLabel='Meus Pedidos'>
                <div className={checkoutStyles.modal}>
                   <div className={checkoutStyles.checkoutItems}>
                      <table className={checkoutStyles.table}>
-                     {meusPedidos.map((pedido) => {
-                        var index = meusPedidos.findIndex(x => x.id === pedido.id);
+                     {meusPedidos.map((p) => {
+                        var index = meusPedidos.findIndex(x => x.id === p.id);
                         return (
                            // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
-                           <tr className={pedidosStyles.pedido}>
-                              <td className={checkoutStyles.checkoutSubTotal}>R$ {pedido.total}</td>
-                              <td className={pedidosStyles.dateHour}>{formatDate(pedido.date_hour)}</td>
-                              <td className={pedidosStyles.pedidoObs}>{pedido.obs}</td>
-                           </tr>
+                           <div className={pedidosStyles.pedido}>
+                              <tr className={pedidosStyles.geral}>
+                                 <td className={checkoutStyles.pedidoText}>Lanches da Phanda</td>
+                                 <td className={pedidosStyles.dateHour}>{formatDate(p.pedido.date_hour)}</td>
+                                 <td className={checkoutStyles.checkoutSubTotal}>R$ {p.pedido.total}</td>
+                              </tr>
+                              {p.detalheItems.map((detalhe) => {
+                                 return (
+                                    <tr className={pedidosStyles.items}>   
+                                    <td className={pedidosStyles.pedidoText}>{detalhe.name}</td>
+                                       <td className={checkoutStyles.checkoutSubTotal}>{`X ${detalhe.quantity}`}</td>
+                                       <td className={checkoutStyles.checkoutSubTotal}>R$ {detalhe.price}</td>
+                                    </tr>
+                                 );
+                              })}
+          
+                           </div>
                         );
                      })}
                      </table>
                   </div>
-                  <button className={checkoutStyles.buttonFinish} onClick={() => save()}>Finalizar</button>
                </div>
          </ReactModal>
 

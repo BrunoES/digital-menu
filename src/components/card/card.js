@@ -34,7 +34,7 @@ function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
         let indexIfExists = cart.findIndex(x => x.menuItem.id === menuItem.id);
         var subTot = (quantity * menuItem.price);
         var qtd = quantity;
-        var totCart = (totalCart + subTot);
+        var totCart = (parseFloat(totalCart) + parseFloat(subTot));
 
         console.log("index: " + indexIfExists);
 
@@ -56,6 +56,9 @@ function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
           });
 
         setTotalCart(parseFloat(totCart).toFixed(2));
+
+        console.log("totCart: " + parseFloat(totCart).toFixed(2));
+        console.log("setTotalCart: " + parseFloat(totCart).toFixed(2));
         closeModal();
         setMsgAlert(quantity + " x " + menuItem.name + " adicionado(s) ao carrinho");
         setOpenAlertSucess(true);
@@ -68,7 +71,7 @@ function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
 
     return (
         <div>
-            <Snackbar open={openAlertSucess} autoHideDuration={1500} onClose={handleCloseAlert}>
+            <Snackbar open={openAlertSucess} autoHideDuration={1000} onClose={handleCloseAlert}>
                 <Alert severity="success" sx={{ width: '100%' }}>
                     {msgAlert}
                 </Alert>
