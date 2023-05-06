@@ -90,11 +90,21 @@ const App = () => {
    }
 
    function removeCartItemByIndex(index) {
+      var subtotalItem = (parseFloat(cart[index].subtotal));
+      var totCart = parseFloat(totalCart - subtotalItem).toFixed(2);
+      setTotalCart(totCart);
+
       setMsgAlert("Removendo " + cart[index].quantity + " " + cart[index].menuItem.name + " do carrinho.");
       setCart(oldValues => {
          return oldValues.filter((_, i) => i !== index)
        });
+
        setOpenAlertRemoveItemCheckout(true);
+
+       console.log("Length: " + cart.length)
+       if(cart.length <= 1) {
+         closeModalCart();
+       }
    }
 
    function save() {
@@ -114,7 +124,7 @@ const App = () => {
          customerId: customerId,
          customerName: "Bruno Henrique",
          total: totalCart,
-         obs: "Sem katchupPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+         obs: "Sem katchup",
          checkoutItems : checkoutItems
      }
 
@@ -167,7 +177,7 @@ const App = () => {
                   <div className={checkoutStyles.checkoutItems}>
                      <table className={checkoutStyles.table}>
                      {cart.map((item) => {
-                        var index = cart.findIndex(x => x.id === item.id);
+                        var index = cart.findIndex(x => x.menuItem.id === item.menuItem.id);
                         return (
                            // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
                            <tr className={checkoutStyles.item}>
