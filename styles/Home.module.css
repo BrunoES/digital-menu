@@ -128,12 +128,10 @@
   background-color: rgb(245, 48, 48);
   color: white;
   text-align: center;
-  padding: 7px;
+  padding-bottom: 18px;
   border-radius: 10px;
 }
 
 .endList {
   margin-top: 35%;
 }
-
-

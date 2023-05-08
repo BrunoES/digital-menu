@@ -1,8 +1,10 @@
 import ReactModal from 'react-modal';
 import styles from './Card.module.css';
+import checkoutStyles from '../checkout/Checkout.module.css';
 import { useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { FaCartPlus, FaPlus, FaPlusSquare, FaRegPlusSquare, Plus } from 'react-icons/fa';
 
 function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
 
@@ -96,8 +98,9 @@ function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
                             <input className={styles.inputQuantity} type='number' value={quantity} readOnly/>
                             <button className={styles.buttonIcreaseDecrease} onClick={increaseQtd}>+</button>
                         </p>
-                        <p><button className={styles.buttonAdd} onClick={() => add(menuItem) }>Adicionar</button></p>
+                        <p><button className={styles.buttonAdd} onClick={() => add(menuItem) }><FaPlus size={35}/> Adicionar</button></p>
                     </div>
+                    <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModal()}>Fechar</button>
                 </ReactModal>
             </div>
         </div>

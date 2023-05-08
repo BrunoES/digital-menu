@@ -6,6 +6,7 @@ import pedidosStyles from "../src/components/pedidos/Pedidos.module.css";
 import ReactModal from 'react-modal';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { FaShoppingCart, FaListAlt } from 'react-icons/fa';
 
 ReactModal.defaultStyles.content.padding = '0px';
 ReactModal.defaultStyles.content.border = 'none';
@@ -35,6 +36,8 @@ const App = () => {
 
   const [openAlertRemoveItemCheckout, setOpenAlertRemoveItemCheckout] = useState(false);
   const [openAlertCheckoutFinished, setOpenAlertCheckoutFinished] = useState(false);
+  const [openAlertCartIsEmpty, setOpenAlertCartIsEmpty] = useState(false);
+  const [openAlertMeusPedidosIsEmpty , setOpenAlertMeusPedidosIsEmpty] = useState(false);
   const [msgAlert, setMsgAlert] = useState("");
   
   useEffect(() => {
@@ -68,12 +71,24 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
          console.log(data);
-       setMeusPedidos(data);
+         if(data.length > 0) {
+            setMeusPedidos(data);
+            setModalMeusPedidosIsOpened(true);
+         } else {
+            setMsgAlert("Você ainda não possui pedidos, faça o primeiro");
+            setOpenAlertMeusPedidosIsEmpty(true);
+         }
+         
       })
    }
 
    function openModalCart() {
-      setModalCartIsOpened(true);
+      if(cart.length <= 0) {
+         setMsgAlert("Carrinho vazio, selecione o produto desejado acima.");
+         setOpenAlertCartIsEmpty(true);
+      } else {
+         setModalCartIsOpened(true);
+      }
    }
 
    function closeModalCart() {
@@ -82,7 +97,6 @@ const App = () => {
 
    function openModalMeusPedidos() {
       loadMeusPedidos();
-      setModalMeusPedidosIsOpened(true);
    }
 
    function closeModalMeusPedidos() {
@@ -146,6 +160,8 @@ const App = () => {
    function handleCloseAlert() {
       setOpenAlertRemoveItemCheckout(false);
       setOpenAlertCheckoutFinished(false);
+      setOpenAlertCartIsEmpty(false);
+      setOpenAlertMeusPedidosIsEmpty(false);
       setMsgAlert("");
    }
 
@@ -163,6 +179,16 @@ const App = () => {
       </Snackbar>
       <Snackbar open={openAlertCheckoutFinished} autoHideDuration={5000} onClose={handleCloseAlert}>
          <Alert severity="success" sx={{ width: '100%' }}>
+            {msgAlert}
+         </Alert>
+      </Snackbar>
+      <Snackbar open={openAlertCartIsEmpty} autoHideDuration={3500} onClose={handleCloseAlert}>
+         <Alert severity="info" sx={{ width: '100%' }}>
+            {msgAlert}
+         </Alert>
+      </Snackbar>
+      <Snackbar open={openAlertMeusPedidosIsEmpty} autoHideDuration={3500} onClose={handleCloseAlert}>
+         <Alert severity="info" sx={{ width: '100%' }}>
             {msgAlert}
          </Alert>
       </Snackbar>
@@ -191,6 +217,7 @@ const App = () => {
                      </table>
                   </div>
                   <button className={checkoutStyles.buttonFinish} onClick={() => save()}>Finalizar</button>
+                  <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModalCart()}>Fechar</button>
                </div>
          </ReactModal>
          <ReactModal
@@ -199,6 +226,7 @@ const App = () => {
                appElement={this}
                contentLabel='Meus Pedidos'>
                <div className={checkoutStyles.modal}>
+                  {meusPedidos.length}
                   <div className={checkoutStyles.checkoutItems}>
                      <table className={checkoutStyles.table}>
                      {meusPedidos.map((p) => {
@@ -226,6 +254,7 @@ const App = () => {
                      })}
                      </table>
                   </div>
+                  <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModalMeusPedidos()}>Fechar</button>
                </div>
          </ReactModal>
 
@@ -240,9 +269,21 @@ const App = () => {
 
          <div className={styles.endList}></div>
          <div className={styles.footer}>
-            <p>R$ {totalCart}</p>
-            <button className={checkoutStyles.buttonCart} onClick={() => openModalCart()}>Carrinho</button>
-            <button className={checkoutStyles.buttonCart} onClick={() => openModalMeusPedidos()}>Meus Pedidos</button>
+            <p>
+               <span className={checkoutStyles.total}>R$ {totalCart}</span>
+            </p>
+            <button className={checkoutStyles.buttonCart} onClick={() => openModalCart()}>
+               <FaShoppingCart size={35}/>
+               <br/>
+               {
+                  (cart.length == 0 ? "Sem itens no carrinho" : ((cart.length == 1 ? "1 Item" : `${cart.length} Itens`) + ", vamos finalizar?"))
+               }
+            </button>
+            <button className={checkoutStyles.buttonCart} onClick={() => openModalMeusPedidos()}>
+               <FaListAlt size={35}/>
+               <br/>
+               Pedidos
+            </button>
          </div>
       </div>
    </div>
