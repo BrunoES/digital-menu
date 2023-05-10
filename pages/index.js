@@ -15,6 +15,9 @@ ReactModal.defaultStyles.content.marginTop = '40px';
 ReactModal.defaultStyles.content.marginLeft = '5px';
 ReactModal.defaultStyles.content.marginRight = '5px';
 ReactModal.defaultStyles.content.marginBottom = '20px';
+ReactModal.defaultStyles.content.height = '100%';
+//ReactModal.defaultStyles.content.display = 'flex';
+//#ReactModal.defaultStyles.content.height = '500px';
 
 const App = () => {
    // Variáveis de sessão
@@ -197,7 +200,6 @@ const App = () => {
                isOpen={modalCartIsOpened}
                onRequestClose={closeModalCart}
                appElement={this}
-               preventScroll={true}
                contentLabel='Finalizar Pedido'>
                <div className={checkoutStyles.modal}>
                   <div className={checkoutStyles.checkoutItems}>
@@ -217,8 +219,8 @@ const App = () => {
                      </table>
                   </div>
                   <button className={checkoutStyles.buttonFinish} onClick={() => save()}>Finalizar</button>
-                  <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModalCart()}>Fechar</button>
                </div>
+               <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModalCart()}>Fechar</button>
          </ReactModal>
          <ReactModal
                isOpen={modalMeusPedidosIsOpened}
@@ -226,7 +228,7 @@ const App = () => {
                appElement={this}
                contentLabel='Meus Pedidos'>
                <div className={checkoutStyles.modal}>
-                  {meusPedidos.length}
+                  <span className={checkoutStyles.description}>Você tem {meusPedidos.length} pedidos no pedaqui</span>
                   <div className={checkoutStyles.checkoutItems}>
                      <table className={checkoutStyles.table}>
                      {meusPedidos.map((p) => {
@@ -254,8 +256,8 @@ const App = () => {
                      })}
                      </table>
                   </div>
-                  <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModalMeusPedidos()}>Fechar</button>
                </div>
+               <button className={checkoutStyles.buttonCloseModal} onClick={() => closeModalMeusPedidos()}>Fechar</button>
          </ReactModal>
 
          {menuItems.map((menuItem) => {
