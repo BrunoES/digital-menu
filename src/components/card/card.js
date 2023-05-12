@@ -6,6 +6,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { FaCartPlus, FaPlus, FaPlusSquare, FaRegPlusSquare, Plus } from 'react-icons/fa';
 
+import formatFloat from '../utils/utils.js';
+
 function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
 
     const [modalIsOpened, setModalIsOpened] = useState(false);
@@ -83,9 +85,10 @@ function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
                 <div className={styles.itemInfos} onClick={() => openModal()}>
                     <span className={styles.itemTitle}>{menuItem.name}</span>
                     <br/>
-                    <span className={styles.itemDescription}>{menuItem.description}</span>
-                    <br/>
-                    <span className={styles.itemPrice}>R$ {menuItem.price}</span>
+                    <textarea className={styles.itemDescription} rows={4} disabled>
+                        {menuItem.description}
+                    </textarea>
+                    <span className={styles.itemPrice}>R$ {formatFloat(menuItem.price)}</span>
                 </div>
                 <ReactModal
                     isOpen={modalIsOpened}

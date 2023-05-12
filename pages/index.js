@@ -8,6 +8,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { FaShoppingCart, FaListAlt } from 'react-icons/fa';
 
+import formatFloat from '../src/components/utils/utils.js';
+
 ReactModal.defaultStyles.content.padding = '0px';
 ReactModal.defaultStyles.content.border = 'none';
 ReactModal.defaultStyles.content.position = 'none';
@@ -213,7 +215,7 @@ const App = () => {
                            <tr className={checkoutStyles.item}>
                               <td className={checkoutStyles.checkoutQuantity}>{item.quantity} X</td>
                               <td className={checkoutStyles.checkoutDetail}>{item.menuItem.name}</td>
-                              <td className={checkoutStyles.checkoutSubTotal}>R$ {item.subtotal}</td>
+                              <td className={checkoutStyles.checkoutSubTotal}>R$ {formatFloat(item.subtotal)}</td>
                               <td><button className={checkoutStyles.close} onClick={() => removeCartItemByIndex(index)}>X</button></td>
                            </tr>
                         );
@@ -241,14 +243,14 @@ const App = () => {
                               <tr className={pedidosStyles.geral}>
                                  <td className={checkoutStyles.pedidoText}>Lanches da Phanda</td>
                                  <td className={pedidosStyles.dateHour}>{formatDate(p.pedido.date_hour)}</td>
-                                 <td className={checkoutStyles.checkoutSubTotal}>R$ {p.pedido.total}</td>
+                                 <td className={checkoutStyles.checkoutSubTotal}>R$ {formatFloat(p.pedido.total)}</td>
                               </tr>
                               {p.detalheItems.map((detalhe) => {
                                  return (
                                     <tr className={pedidosStyles.items}>   
                                     <td className={pedidosStyles.pedidoText}>{detalhe.name}</td>
                                        <td className={checkoutStyles.checkoutSubTotal}>{`X ${detalhe.quantity}`}</td>
-                                       <td className={checkoutStyles.checkoutSubTotal}>R$ {detalhe.price}</td>
+                                       <td className={checkoutStyles.checkoutSubTotal}>R$ {formatFloat(detalhe.price)}</td>
                                     </tr>
                                  );
                               })}
@@ -274,7 +276,7 @@ const App = () => {
          <div className={styles.endList}></div>
          <div className={styles.footer}>
             <p>
-               <span className={checkoutStyles.total}>R$ {totalCart}</span>
+               <span className={checkoutStyles.total}>R$ {formatFloat(totalCart)}</span>
             </p>
             <button className={checkoutStyles.buttonCart} onClick={() => openModalCart()}>
                <FaShoppingCart size={35}/>

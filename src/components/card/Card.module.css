@@ -14,6 +14,7 @@
     border-radius: 17px;
     border-color: coral;
     min-width: 20em; /* Will be AT LEAST 20em wide */
+    min-height: 110px;
 }
 
 /* The Modal (background) */
@@ -94,7 +95,7 @@
 }
 
 .itemInfos {
-   
+    position: relative;
 }
 
 .cardPrincipalImage {
@@ -102,20 +103,32 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 5px;
-    width: 150px;
-    height: 100%;
+    width: 30%;
+    height: 80px;
+    margin-top: 10px;
 }
 
 .itemTitle {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 .itemDescription {
-    font-size: 13px;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 65%;
+    border: none;
     color: gray;
+    height: 100%;
+    overflow: hidden; /* Remove scroll */
+    margin-top: 5px;
+    text-align: center;
+    background-color: white;
 }
 
 .itemPrice {
-    font-size: 14px;
+    position: absolute;
+    top: 90px;
+    left: 80px;
+    font-size: 15px;
 }
