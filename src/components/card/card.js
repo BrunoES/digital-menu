@@ -78,11 +78,14 @@ function Card({menuItem, totalCart, setTotalCart, cart, setCart}) {
                     {msgAlert}
                 </Alert>
             </Snackbar>
+            <img className={styles.cardPrincipalImage} src={`data:image/png;base64,${menuItem.base64Img}`}></img>
             <div className={styles.card} key={menuItem.id}>
-                <div onClick={() => openModal()}>
-                    <h3 className="item-title">{menuItem.name}</h3>
-                    <p className="item-description">{menuItem.description}</p>
-                    <p className="item-price">R$ {menuItem.price}</p>
+                <div className={styles.itemInfos} onClick={() => openModal()}>
+                    <span className={styles.itemTitle}>{menuItem.name}</span>
+                    <br/>
+                    <span className={styles.itemDescription}>{menuItem.description}</span>
+                    <br/>
+                    <span className={styles.itemPrice}>R$ {menuItem.price}</span>
                 </div>
                 <ReactModal
                     isOpen={modalIsOpened}

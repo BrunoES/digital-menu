@@ -92,3 +92,30 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.itemInfos {
+   
+}
+
+.cardPrincipalImage {
+    float: right;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5px;
+    width: 150px;
+    height: 100%;
+}
+
+.itemTitle {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.itemDescription {
+    font-size: 13px;
+    color: gray;
+}
+
+.itemPrice {
+    font-size: 14px;
+}

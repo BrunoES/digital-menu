@@ -52,14 +52,16 @@ const App = () => {
            var tempMenuItems = new Array();
            data.forEach(element => {
             tempMenuItems.push({
-                  id: element.id,
-                  name: element.name,
-                  description: element.description,
-                  price: element.price,
-                  qtd: 0
-               })
+                  id: element.menuItem.id,
+                  name: element.menuItem.name,
+                  description: element.menuItem.description,
+                  price: element.menuItem.price,
+                  qtd: 0,
+                  base64Img: element.base64Img
+               });
+               console.log(element.imgBase64);
          });
-
+         atob
          setCustomerId(1);
          setMenuItems(tempMenuItems);
         })
