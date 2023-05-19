@@ -46,7 +46,7 @@ const App = () => {
   const [msgAlert, setMsgAlert] = useState("");
   
   useEffect(() => {
-     fetch('http://192.168.0.18:8080/menu-items')
+     fetch('http://192.168.0.51:8080/menu-items')
         .then((response) => response.json())
         .then((data) => {
            console.log(data);
@@ -74,7 +74,7 @@ const App = () => {
   }, []);
 
    function loadMeusPedidos() {
-      fetch(`http://192.168.0.18:8080/pedidos/${customerId}`)
+      fetch(`http://192.168.0.51:8080/pedidos-by-customer-id/${customerId}`)
       .then((response) => response.json())
       .then((data) => {
          console.log(data);
@@ -149,7 +149,7 @@ const App = () => {
          checkoutItems : checkoutItems
      }
 
-      fetch('http://192.168.0.18:8080/pedidos', {
+      fetch('http://192.168.0.51:8080/pedidos', {
          method: "POST",
          body: JSON.stringify(checkout),
          headers: {"Content-type": "application/json; charset=UTF-8"}
